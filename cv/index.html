@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Hasan Mosayyebnezhad — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12161F;
+    --ink-soft:#4B5262;
+    --paper:#F7F8FA;
+    --panel:#FFFFFF;
+    --line:#DCE0E7;
+    --accent:#2F5FE0;
+    --accent-soft:#E7ECFC;
+    --teal:#0F7C6C;
+    --teal-soft:#E3F3EF;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding:48px 24px 80px;
+  }
+
+  .sheet{
+    max-width:960px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--line);
+    position:relative;
+    animation:rise .6s ease both;
+  }
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .sheet{animation:none;}
+  }
+
+  /* ---------- blueprint grid header ---------- */
+  header{
+    position:relative;
+    padding:56px 56px 44px;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+
+  .grid-bg{
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:28px 28px;
+    opacity:.35;
+    mask-image:linear-gradient(to bottom, black, transparent 85%);
+  }
+
+  .eyebrow{
+    position:relative;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:14px;
+  }
+
+  h1{
+    position:relative;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:44px;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  .role{
+    position:relative;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:500;
+    font-size:18px;
+    color:var(--ink-soft);
+    margin-top:8px;
+  }
+
+  .contact-row{
+    position:relative;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    margin-top:26px;
+  }
+
+  .contact-row a, .contact-row span{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .contact-row a:hover{ color:var(--accent); }
+
+  .dot{
+    width:5px; height:5px; border-radius:50%;
+    background:var(--teal);
+    display:inline-block;
+  }
+
+  /* ---------- layout ---------- */
+  .layout{
+    display:grid;
+    grid-template-columns:260px 1fr;
+  }
+
+  aside{
+    padding:44px 36px;
+    border-right:1px solid var(--line);
+    background:#FBFBFD;
+  }
+
+  main{
+    padding:44px 56px;
+  }
+
+  .block{ margin-bottom:40px; }
+  .block:last-child{ margin-bottom:0; }
+
+  .label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .label::before{
+    content:"";
+    width:14px; height:1px;
+    background:var(--accent);
+    display:inline-block;
+  }
+
+  /* skills */
+  .skill-group{ margin-bottom:20px; }
+  .skill-group:last-child{ margin-bottom:0; }
+
+  .skill-group h4{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    color:var(--ink);
+    margin-bottom:9px;
+  }
+
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    padding:4px 8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-radius:3px;
+    border:1px solid transparent;
+  }
+
+  .tag.alt{
+    background:var(--teal-soft);
+    color:var(--teal);
+  }
+
+  /* education */
+  .edu-item{ margin-bottom:16px; }
+  .edu-item:last-child{ margin-bottom:0; }
+
+  .edu-item .degree{
+    font-weight:600;
+    font-size:13.5px;
+    color:var(--ink);
+  }
+
+  .edu-item .school{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+
+  .edu-item .yr{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--teal);
+    margin-top:4px;
+  }
+
+  .lang-list{ font-size:13px; color:var(--ink-soft); }
+  .lang-list div{ display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px dashed var(--line); }
+  .lang-list div:last-child{ border-bottom:none; }
+  .lang-list b{ color:var(--ink); font-weight:600; }
+
+  /* summary */
+  .summary{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    max-width:60ch;
+  }
+
+  /* ---------- experience: commit-log timeline ---------- */
+  .timeline{
+    position:relative;
+    padding-left:26px;
+  }
+
+  .timeline::before{
+    content:"";
+    position:absolute;
+    left:5px; top:6px; bottom:6px;
+    width:1px;
+    background:var(--line);
+  }
+
+  .commit{
+    position:relative;
+    padding-bottom:32px;
+  }
+
+  .commit:last-child{ padding-bottom:0; }
+
+  .commit::before{
+    content:"";
+    position:absolute;
+    left:-26px; top:5px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--panel);
+    border:2px solid var(--accent);
+  }
+
+  .commit-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px 14px;
+    margin-bottom:6px;
+  }
+
+  .commit-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:16.5px;
+    color:var(--ink);
+  }
+
+  .commit-company{
+    color:var(--accent);
+    font-weight:500;
+  }
+
+  .commit-date{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .commit ul{
+    list-style:none;
+    margin-top:10px;
+  }
+
+  .commit li{
+    position:relative;
+    padding-left:16px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+
+  .commit li::before{
+    content:"→";
+    position:absolute;
+    left:0;
+    color:var(--teal);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+  }
+
+  .commit-tags{
+    margin-top:10px;
+  }
+
+  /* projects */
+  .project{
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px 20px;
+    margin-bottom:14px;
+  }
+
+  .project:last-child{ margin-bottom:0; }
+
+  .project-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:8px;
+  }
+
+  .project-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15.5px;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    padding:2px 7px;
+    border-radius:20px;
+    background:var(--teal-soft);
+    color:var(--teal);
+  }
+
+  .project-link{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    text-decoration:none;
+  }
+  .project-link:hover{ color:var(--accent); }
+
+  .project p{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  footer{
+    text-align:center;
+    padding:22px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    body{ padding:16px; }
+    header{ padding:36px 24px 30px; }
+    h1{ font-size:32px; }
+    .layout{ grid-template-columns:1fr; }
+    aside{ border-right:none; border-bottom:1px solid var(--line); }
+    main{ padding:32px 24px; }
+  }
+
+  /* ---------- print ---------- */
+  @media print{
+    body{ background:#fff; padding:0; }
+    .sheet{ border:none; max-width:100%; animation:none; }
+    .grid-bg{ display:none; }
+    a{ text-decoration:none; color:inherit; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header>
+    <div class="grid-bg"></div>
+    <div class="eyebrow">Resume // Software Engineer</div>
+    <h1>Mohammad Hasan Mosayyebnezhad</h1>
+    <div class="role">Full-Stack Software Engineer — Go · TypeScript · React</div>
+
+    <div class="contact-row">
+      <a href="mailto:your.email@example.com"><span class="dot"></span>your.email@example.com</a>
+      <a href="https://github.com/osbn-sh" target="_blank" rel="noopener"><span class="dot"></span>github.com/osbn-sh</a>
+      <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener"><span class="dot"></span>linkedin.com/in/your-profile</a>
+      <span><span class="dot"></span>City, Country</span>
+      <span><span class="dot"></span>+98 000 000 0000</span>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside>
+
+      <div class="block">
+        <div class="label">Skills</div>
+
+        <div class="skill-group">
+          <h4>Languages</h4>
+          <div class="tags">
+            <span class="tag">Go</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Frontend</h4>
+          <div class="tags">
+            <span class="tag">React</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Angular</span>
+            <span class="tag">Tailwind CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Backend</h4>
+          <div class="tags">
+            <span class="tag alt">Node.js</span>
+            <span class="tag alt">Hono</span>
+            <span class="tag alt">REST APIs</span>
+            <span class="tag alt">PostgreSQL</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Tools &amp; Practices</h4>
+          <div class="tags">
+            <span class="tag">Git</span>
+            <span class="tag">Docker</span>
+            <span class="tag">CI / CD</span>
+            <span class="tag">Linux</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="label">Education</div>
+
+        <div class="edu-item">
+          <div class="degree">M.Sc. Software Engineering</div>
+          <div class="school">Sharif University of Technology</div>
+          <div class="yr">2024 — Present</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="degree">B.Sc. Computer Engineering</div>
+          <div class="school">Islamic Azad University, Lahijan</div>
+          <div class="yr">2018 — 2022</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="label">Languages</div>
+        <div class="lang-list">
+          <div><span>Persian</span><b>Native</b></div>
+          <div><span>English</span><b>Fluent</b></div>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main>
+
+      <div class="block">
+        <div class="label">Summary</div>
+        <p class="summary">
+          Full-stack software engineer with hands-on experience building production systems across
+          Go backends and React / Next.js frontends. Comfortable owning a feature end-to-end — from
+          API design and database schema to a polished, responsive UI. Currently building
+          <strong>ostadbun</strong>, an open-source multi-service platform, alongside graduate studies
+          in software engineering at Sharif University of Technology.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="label">Experience</div>
+
+        <div class="timeline">
+
+          <div class="commit">
+            <div class="commit-head">
+              <div class="commit-title">Full-Stack Software Engineer <span class="commit-company">@ Lahij</span></div>
+              <div class="commit-date">2023 — 2024 · 1 yr</div>
+            </div>
+            <ul>
+              <li>Developed and maintained full-stack features across a React / Node.js product, from API design to UI implementation.</li>
+              <li>Collaborated with a small team to ship iterative releases, improving performance and reliability of core flows.</li>
+              <li>Wrote and refactored components with a focus on maintainability and type safety.</li>
+            </ul>
+            <div class="commit-tags tags">
+              <span class="tag">React</span>
+              <span class="tag alt">Node.js</span>
+              <span class="tag">TypeScript</span>
+            </div>
+          </div>
+
+          <div class="commit">
+            <div class="commit-head">
+              <div class="commit-title">Software Engineer <span class="commit-company">@ Company Name</span></div>
+              <div class="commit-date">20XX — 20XX</div>
+            </div>
+            <ul>
+              <li>Placeholder line — describe scope of ownership and impact.</li>
+              <li>Placeholder line — mention a measurable outcome if possible.</li>
+            </ul>
+            <div class="commit-tags tags">
+              <span class="tag">Go</span>
+              <span class="tag alt">PostgreSQL</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="label">Projects</div>
+
+        <div class="project">
+          <div class="project-head">
+            <div class="project-name">ostadbun <span class="badge">Open Source</span></div>
+            <a class="project-link" href="https://github.com/osbn-sh" target="_blank" rel="noopener">github.com/osbn-sh →</a>
+          </div>
+          <p>
+            A multi-service open-source platform composed of a Next.js frontend, a Go backend API,
+            a Svelte marketing site, and a companion CLI tool. Designed the backend's structured
+            error-handling package (stack traces, error wrapping, operation chaining) and built the
+            public-facing landing page.
+          </p>
+          <div class="tags">
+            <span class="tag">Next.js</span>
+            <span class="tag alt">Go</span>
+            <span class="tag">Svelte</span>
+            <span class="tag alt">CLI</span>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="project-head">
+            <div class="project-name">Project Name <span class="badge">Personal</span></div>
+            <a class="project-link" href="#" target="_blank" rel="noopener">link →</a>
+          </div>
+          <p>Placeholder description — one or two sentences on what the project does and your role in it.</p>
+          <div class="tags">
+            <span class="tag">Tech</span>
+            <span class="tag alt">Tech</span>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <footer>Last updated — July 2026</footer>
+
+</div>
+
+</body>
+</html>
