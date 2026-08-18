@@ -1,0 +1,328 @@
+{
+"site": {
+"title": "Mohammad Hasan Mosayyebnezhad — Software Developer",
+"description": "Portfolio of Mohammad Hasan Mosayyebnezhad, a Computer Engineering student and software developer focused on frontend, backend, Go, React, and computer science.",
+"url": "YOUR_WEBSITE_URL",
+"ogImage": "YOUR_OG_IMAGE_URL"
+},
+
+"personal": {
+"name": "Mohammad Hasan Mosayyebnezhad",
+"shortName": "Mohammad Hasan",
+"initials": "MH",
+"title": "Computer Engineering Student & Software Developer",
+
+
+"heroTyping": [
+  "Computer Engineering Student & Software Developer.",
+  "Frontend & Backend Developer in progress.",
+  "Learning Computer Science by building software."
+],
+
+"heroDescription": "I enjoy building software, exploring both frontend and backend development, and going deeper into the fundamentals of computer science.",
+
+"about": [
+  "I am a Computer Engineering student at Islamic Azad University, Lahijan, with a strong interest in software development.",
+  "My current work revolves around web development, especially React and Next.js on the frontend and Go and Node.js on the backend. I enjoy turning ideas into working software and learning by actually building things.",
+  "At the same time, I am intentionally spending time on the fundamentals of Computer Science. Discrete Mathematics, algorithms, data structures, operating systems, computer architecture, and other core subjects are an important part of the direction I want to take."
+],
+
+"field": "Computer Engineering",
+"university": "Islamic Azad University, Lahijan",
+"focus": "Software Development",
+
+"interests": [
+  "Web Development",
+  "Backend Development",
+  "Frontend Development",
+  "Computer Science"
+],
+
+"languages": [
+  "Go",
+  "TypeScript",
+  "JavaScript"
+]
+
+
+},
+
+"social": {
+"github": "YOUR_GITHUB_URL",
+"linkedin": "YOUR_LINKEDIN_URL",
+"telegram": "YOUR_TELEGRAM_URL",
+"email": "YOUR_EMAIL"
+},
+
+"skills": {
+"frontend": {
+"title": "Frontend",
+"description": "Interfaces, applications and modern web experiences.",
+"icon": "fa-solid fa-display",
+"items": [
+"React",
+"Next.js",
+"TypeScript",
+"JavaScript",
+"Tailwind CSS",
+"React Query",
+"Redux",
+"Vite",
+"Material UI"
+]
+},
+
+
+"backend": {
+  "title": "Backend",
+  "description": "APIs, services, databases and backend systems.",
+  "icon": "fa-solid fa-server",
+  "items": [
+    "Go",
+    "Node.js",
+    "Express",
+    "REST API",
+    "PostgreSQL",
+    "MongoDB",
+    "Redis"
+  ]
+},
+
+"tools": {
+  "title": "Tools",
+  "description": "The tools I use around development and collaboration.",
+  "icon": "fa-solid fa-screwdriver-wrench",
+  "items": [
+    "Git",
+    "GitHub",
+    "Docker",
+    "Postman",
+    "VS Code",
+    "Linux",
+    "Figma"
+  ]
+}
+
+
+},
+
+"techStack": [
+{
+"name": "React",
+"category": "Frontend Library",
+"icon": "fa-brands fa-react"
+},
+{
+"name": "TypeScript",
+"category": "Programming Language",
+"icon": "fa-brands fa-js"
+},
+{
+"name": "Node.js",
+"category": "Runtime",
+"icon": "fa-brands fa-node-js"
+},
+{
+"name": "Go",
+"category": "Backend / Systems",
+"icon": "fa-solid fa-code"
+},
+{
+"name": "Tailwind CSS",
+"category": "CSS Framework",
+"icon": "fa-brands fa-css3-alt"
+},
+{
+"name": "PostgreSQL",
+"category": "Relational Database",
+"icon": "fa-solid fa-database"
+},
+{
+"name": "Redis",
+"category": "In-memory Data Store",
+"icon": "fa-solid fa-memory"
+},
+{
+"name": "Docker",
+"category": "Containerization",
+"icon": "fa-brands fa-docker"
+}
+],
+
+"projects": [
+{
+"name": "OSTADBUN",
+"type": "Featured · Open Source",
+"description": "An open-source platform focused on academic institutions, universities, professors, and courses. Users can contribute information which can then move through a moderation process before becoming part of the platform.",
+"technologies": [
+"Go",
+"Fiber",
+"PostgreSQL",
+"Redis",
+"Swagger",
+"Docker"
+],
+"github": "YOUR_OSTADBUN_GITHUB_URL",
+"featured": true
+},
+
+
+{
+  "name": "Bidire",
+  "type": "Personal Project",
+  "description": "A personal experiment in building a lightweight key-value database with in-memory operation, persistence and a REST API.",
+  "technologies": [
+    "Go",
+    "In-memory",
+    "JSON",
+    "Persistence",
+    "REST API"
+  ],
+  "github": "YOUR_BIDIRE_GITHUB_URL",
+  "featured": false
+},
+
+{
+  "name": "More to come.",
+  "type": "Future Project",
+  "description": "The portfolio will continue to evolve as new experiments, applications and open-source projects are built.",
+  "technologies": [
+    "Learning",
+    "Building",
+    "Experimenting"
+  ],
+  "github": "",
+  "featured": false
+}
+
+
+],
+
+"education": [
+{
+"date": "Current",
+"title": "B.Sc. Computer Engineering",
+"description": "Islamic Azad University, Lahijan. Studying Computer Engineering while independently developing software and exploring core Computer Science concepts.",
+"active": true
+},
+
+
+{
+  "date": "Parallel learning",
+  "title": "Computer Science Foundations",
+  "description": "Building a stronger foundation through discrete mathematics, algorithms, data structures, operating systems, architecture, databases, networks, statistics, and software engineering.",
+  "active": false
+},
+
+{
+  "date": "Learning by building",
+  "title": "Practical Software Development",
+  "description": "Developing projects with technologies such as Go, React, Next.js, TypeScript, Node.js, PostgreSQL, Redis and Docker.",
+  "active": false
+}
+
+
+],
+
+"learning": {
+"philosophy": "I don't want to only know how to use a framework. I want to understand the concepts underneath the software I build: algorithms, data structures, operating systems, architecture, databases, networks and the principles that make systems work.",
+"quote": "learn → build → break → understand → build better",
+
+
+"subjects": [
+  "Discrete Mathematics",
+  "Data Structures",
+  "Algorithms",
+  "Logic",
+  "Operating Systems",
+  "Computer Architecture",
+  "Database Systems",
+  "Computer Networks",
+  "Statistics",
+  "Programming Languages",
+  "Software Engineering"
+]
+
+
+},
+
+"goals": [
+{
+"number": "01 / ENGINEERING",
+"icon": "fa-solid fa-code",
+"title": "Become a stronger Software Engineer",
+"description": "Develop the engineering judgment needed to design, build and maintain reliable software."
+},
+
+
+{
+  "number": "02 / BACKEND",
+  "icon": "fa-solid fa-server",
+  "title": "Go deeper into Go & Backend",
+  "description": "Strengthen backend development and understand systems beyond simply creating APIs."
+},
+
+{
+  "number": "03 / FUNDAMENTALS",
+  "icon": "fa-solid fa-brain",
+  "title": "Master CS fundamentals",
+  "description": "Improve data structures, algorithms, problem solving and foundational computer science knowledge."
+},
+
+{
+  "number": "04 / FUTURE",
+  "icon": "fa-solid fa-arrow-trend-up",
+  "title": "ICPC & Graduate Study",
+  "description": "Prepare for ICPC and pursue further study in Computer Science or Computer Engineering at the Master's level."
+}
+
+
+],
+
+"experience": [
+{
+"date": "Open Source",
+"title": "OSTADBUN",
+"description": "Working on a real-world open-source platform involving backend architecture, APIs, PostgreSQL, Redis, documentation and containerization.",
+"active": true
+},
+
+
+{
+  "date": "Personal Project",
+  "title": "Bidire",
+  "description": "Exploring database concepts by building a lightweight key-value database with in-memory storage, persistence and a REST interface in Go.",
+  "active": false
+},
+
+{
+  "date": "Continuous",
+  "title": "Learning through projects",
+  "description": "Building applications with React, Next.js, TypeScript, Go and Node.js to turn theoretical knowledge into practical experience.",
+  "active": false
+}
+
+
+],
+
+"github": {
+"title": "Build in public.<br>Learn by building.",
+"description": "Open source is an important part of how I learn. I enjoy experimenting with software, solving problems, building backend systems and gradually turning ideas into working projects.",
+
+
+"points": [
+  "Open Source",
+  "Building Software",
+  "Backend Development",
+  "Computer Science",
+  "Learning by Building"
+]
+
+
+},
+
+"contact": {
+"title": "Let's build<br><span>something together.</span>",
+"description": "Whether you want to talk about software development, an open-source project, technology or a potential collaboration, feel free to reach out."
+}
+}
