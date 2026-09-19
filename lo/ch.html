@@ -1,0 +1,178 @@
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>جابجایی حباب NOT در گیت منطقی</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f7fb; color:#172033; display:flex; flex-direction:column;
+  }
+  header{padding:22px 28px 8px;text-align:center}
+  h1{margin:0 0 6px;font-size:24px}
+  .hint{margin:0;color:#647084;font-size:14px}
+  .controls{
+    display:flex; justify-content:center; align-items:center; gap:18px; flex-wrap:wrap;
+    padding:16px 20px;
+  }
+  select{
+    font:inherit; padding:9px 14px; border:1px solid #ccd3df; border-radius:10px;
+    background:white; cursor:pointer;
+  }
+  .value{font-weight:700;min-width:72px;text-align:center}
+  input[type=range]{width:min(600px,70vw);accent-color:#315efb}
+  .stage{
+    position:relative; flex:1; min-height:420px; margin:8px 28px 28px;
+    border:1px solid #dce2eb; border-radius:18px; background:white; overflow:hidden;
+  }
+  .stage:before{
+    content:""; position:absolute; left:50%; top:50%; width:1px; height:72%;
+    transform:translate(-50%,-50%); background:#edf0f5;
+  }
+  .gate-wrap{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    display:flex; align-items:center; direction:ltr;
+  }
+  .gate{
+    position:relative; width:190px; height:150px;
+  }
+  svg{width:100%;height:100%;overflow:visible}
+  .not-bubble{
+    position:absolute; top:50%; width:22px;height:22px;border:2.5px solid #172033;
+    border-radius:50%; background:white; transform:translate(-50%,-50%);
+    transition:left .18s ease; z-index:3;
+  }
+  .bubble-line{
+    position:absolute; top:50%; height:2px; background:#172033; transform:translateY(-50%);
+    z-index:2; pointer-events:none;
+  }
+  .bubble-line.left{right:50%;width:85px}
+  .bubble-line.right{left:50%;width:85px}
+  .legend{
+    position:absolute; bottom:16px; left:50%; transform:translateX(-50%);
+    color:#69758a;font-size:13px;white-space:nowrap;
+  }
+  .state{
+    position:absolute; top:14px; left:50%; transform:translateX(-50%);
+    padding:7px 12px;border-radius:999px;background:#f1f4f9;color:#42506a;font-size:13px;
+  }
+  @media(max-width:650px){
+    .stage{margin:8px 12px 12px}
+    .gate{width:160px}
+    input[type=range]{width:85vw}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>جابجایی حباب NOT و قانون دمورگان</h1>
+  <p class="hint">نوع گیت را انتخاب کن و اسلایدر را حرکت بده؛ حباب NOT از ورودی به خروجی منتقل می‌شود.</p>
+</header>
+
+<div class="controls">
+  <label>گیت:
+    <select id="gateSelect">
+      <option value="AND">AND</option>
+      <option value="OR" selected>OR</option>
+      <option value="NAND">NAND</option>
+      <option value="NOR">NOR</option>
+    </select>
+  </label>
+
+  <input id="slider" type="range" min="-100" max="100" value="0" step="1">
+  <div class="value" id="value">وسط</div>
+</div>
+
+<div class="stage">
+  <div class="state" id="state">حباب در وسط</div>
+
+  <div class="gate-wrap">
+    <div class="gate" id="gate">
+      <svg viewBox="0 0 190 150" aria-label="logic gate">
+        <path id="gateBody" d="" fill="white" stroke="#172033" stroke-width="3"/>
+        <path id="extraCurve" d="M0 0" fill="none" stroke="#172033" stroke-width="3"/>
+      </svg>
+      <div class="bubble-line left" id="lineLeft"></div>
+      <div class="bubble-line right" id="lineRight"></div>
+      <div class="not-bubble" id="bubble"></div>
+    </div>
+  </div>
+
+  <div class="legend" id="legend">OR</div>
+</div>
+
+<script>
+const slider = document.getElementById('slider');
+const select = document.getElementById('gateSelect');
+const bubble = document.getElementById('bubble');
+const lineLeft = document.getElementById('lineLeft');
+const lineRight = document.getElementById('lineRight');
+const body = document.getElementById('gateBody');
+const extra = document.getElementById('extraCurve');
+const value = document.getElementById('value');
+const state = document.getElementById('state');
+const legend = document.getElementById('legend');
+
+function drawGate(type, movedSide){
+  // movedSide: "left", "right", or "middle"
+  // For De Morgan: NOT crossing a gate changes AND <-> OR.
+  // NAND/NOR are treated as their base gate with an output inversion.
+  let base = type;
+  if(type === 'NAND') base = 'AND';
+  if(type === 'NOR') base = 'OR';
+
+  // When the bubble is on the input side, the visible gate is the De Morgan dual.
+  // When on the output side, the selected gate is shown.
+  if(movedSide === 'left' && (base === 'AND' || base === 'OR')){
+    base = base === 'AND' ? 'OR' : 'AND';
+  }
+
+  // AND / OR body paths.
+  if(base === 'AND'){
+    body.setAttribute('d','M20 25 H92 A50 50 0 0 1 92 125 H20 Z');
+    extra.setAttribute('d','M0 0');
+  } else {
+    body.setAttribute('d','M20 25 Q68 28 98 75 Q68 122 20 125 Q45 75 20 25 Z');
+    extra.setAttribute('d','M20 25 Q48 75 20 125');
+  }
+
+  // Show the inversion associated with NAND/NOR at the output when the
+  // bubble is on the right. If the bubble is on the left, it represents
+  // input inversion and the displayed base gate is the De Morgan dual.
+  const pct = Number(slider.value);
+  const x = 50 + pct * 0.45; // 5..95%
+  bubble.style.left = x + '%';
+
+  lineLeft.style.display = pct < -1 ? 'block' : 'none';
+  lineRight.style.display = pct > 1 ? 'block' : 'none';
+
+  if(Math.abs(pct) <= 1){
+    value.textContent = 'وسط';
+    state.textContent = 'حباب در وسط';
+  } else if(pct < 0){
+    value.textContent = 'سمت ورودی';
+    state.textContent = 'NOT روی ورودی‌ها';
+  } else {
+    value.textContent = 'سمت خروجی';
+    state.textContent = 'NOT روی خروجی';
+  }
+
+  // If exactly NAND/NOR is selected, make the output bubble the natural one.
+  // The slider still demonstrates moving that NOT across the gate.
+  legend.textContent = base + (type==='NAND' || type==='NOR' ? '  +  NOT' : '');
+}
+
+function update(){
+  const p = Number(slider.value);
+  const side = Math.abs(p) <= 1 ? 'middle' : (p < 0 ? 'left' : 'right');
+  drawGate(select.value, side);
+}
+slider.addEventListener('input', update);
+select.addEventListener('change', update);
+update();
+</script>
+</body>
+</html>

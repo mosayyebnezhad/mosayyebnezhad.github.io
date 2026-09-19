@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قاعده دمورگان — جابجایی نات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F14;
+    --panel:#0F151C;
+    --panel-2:#121A22;
+    --grid: rgba(127,231,196,0.05);
+    --ink:#E7ECEF;
+    --muted:#7C8A96;
+    --wire:#7FE7C4;
+    --wire-dim:#3C5C55;
+    --accent:#FF8A5B;
+    --accent-dim:#8A4E38;
+    --gate-fill:#131B22;
+    --border: rgba(231,236,239,0.14);
+  }
+  :root:not([data-theme="light"]){ color-scheme: dark; }
+  :root[data-theme="light"]{
+    --bg:#F3F1EA;
+    --panel:#FFFFFF;
+    --panel-2:#FBFAF6;
+    --grid: rgba(20,50,45,0.05);
+    --ink:#1B2226;
+    --muted:#6B7680;
+    --wire:#0E8C6E;
+    --wire-dim:#BFE3D8;
+    --accent:#D9622E;
+    --accent-dim:#F0C6AE;
+    --gate-fill:#FFFFFF;
+    --border: rgba(20,30,35,0.14);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#F3F1EA; --panel:#FFFFFF; --panel-2:#FBFAF6; --grid: rgba(20,50,45,0.05);
+      --ink:#1B2226; --muted:#6B7680; --wire:#0E8C6E; --wire-dim:#BFE3D8;
+      --accent:#D9622E; --accent-dim:#F0C6AE; --gate-fill:#FFFFFF; --border: rgba(20,30,35,0.14);
+      color-scheme: light;
+    }
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:
+      radial-gradient(1200px 700px at 15% -10%, color-mix(in srgb, var(--wire) 7%, transparent), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Vazirmatn','Space Grotesk',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px 16px;
+  }
+
+  .stage{
+    width:100%;
+    max-width:760px;
+  }
+
+  header{ margin-bottom:18px; }
+  .eyebrow{
+    display:flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px; letter-spacing:0.02em; color:var(--wire);
+    margin-bottom:10px;
+  }
+  .eyebrow .dot{ width:6px;height:6px;border-radius:50%;background:var(--wire); box-shadow:0 0 8px var(--wire); }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(22px,4vw,30px);
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+  }
+  p.lede{
+    color:var(--muted);
+    font-size:15px;
+    line-height:1.8;
+    margin:0;
+    max-width:60ch;
+  }
+
+  .card{
+    margin-top:22px;
+    background: linear-gradient(180deg, var(--panel), var(--panel-2));
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px 20px 22px;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.55);
+  }
+
+  .gate-toggle{
+    display:inline-flex;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:11px;
+    padding:4px;
+    gap:4px;
+  }
+  .gate-toggle button{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.03em;
+    border:none;
+    background:transparent;
+    color:var(--muted);
+    padding:8px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .gate-toggle button.active{
+    background: color-mix(in srgb, var(--wire) 16%, transparent);
+    color:var(--wire);
+  }
+  .gate-toggle button:focus-visible{ outline:2px solid var(--wire); outline-offset:2px; }
+
+  .row-top{
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+  .expr{
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+    color:var(--ink);
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:8px 14px;
+    direction:ltr;
+    text-align:center;
+    min-width:170px;
+  }
+  .expr b{ color:var(--wire); font-weight:600; }
+
+  .diagram-wrap{
+    margin-top:18px;
+    border-radius:14px;
+    overflow:hidden;
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0/28px 28px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/28px 28px,
+      var(--bg);
+    border:1px solid var(--border);
+  }
+  svg{ display:block; width:100%; height:auto; direction:ltr; }
+
+  .pin-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+    font-weight:600;
+    fill: var(--ink);
+  }
+  .pin-sub{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    fill: var(--muted);
+  }
+
+  .slider-block{ margin-top:20px; }
+  .slider-ends{
+    display:flex; justify-content:space-between;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.04em;
+    color:var(--muted);
+    margin-bottom:8px;
+    direction:ltr;
+  }
+  .slider-ends span:first-child{ color: var(--accent); }
+  .slider-ends span:last-child{ color: var(--wire); }
+
+  input[type=range]{
+    -webkit-appearance:none;
+    appearance:none;
+    width:100%;
+    height:34px;
+    background:transparent;
+    cursor:pointer;
+    direction:ltr;
+  }
+  input[type=range]::-webkit-slider-runnable-track{
+    height:6px;
+    border-radius:4px;
+    background: linear-gradient(90deg, var(--accent), var(--wire-dim) 48%, var(--wire-dim) 52%, var(--wire));
+  }
+  input[type=range]::-moz-range-track{
+    height:6px;
+    border-radius:4px;
+    background: linear-gradient(90deg, var(--accent), var(--wire-dim) 48%, var(--wire-dim) 52%, var(--wire));
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:22px; height:22px;
+    margin-top:-8px;
+    border-radius:50%;
+    background: var(--ink);
+    border:3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--border), 0 6px 14px rgba(0,0,0,0.4);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:22px; height:22px;
+    border-radius:50%;
+    background: var(--ink);
+    border:3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  input[type=range]:focus-visible::-webkit-slider-thumb{ outline:2px solid var(--wire); outline-offset:2px; }
+
+  .foot-note{
+    margin-top:16px;
+    font-size:13px;
+    line-height:1.9;
+    color:var(--muted);
+  }
+  .foot-note b{ color:var(--ink); font-weight:600; }
+
+  @media (prefers-reduced-motion: reduce){
+    * { transition-duration: 0.001ms !important; }
+  }
+
+  @media (max-width:480px){
+    .card{ padding:16px 14px 18px; }
+    .expr{ font-size:13px; padding:7px 10px; min-width:140px; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <header>
+    <div class="eyebrow"><span class="dot"></span>مدار منطقی · قاعده دمورگان</div>
+    <h1>جابجایی نات بین ورودی و خروجی</h1>
+    <p class="lede">
+      نوع گیت را انتخاب کن، بعد اسلایدر را بکش. وقتی نات را از روی خروجی به سمت ورودی‌ها می‌بری،
+      طبق قاعده دمورگان شکل گیت هم از AND به OR (یا برعکس) عوض می‌شود.
+    </p>
+  </header>
+
+  <div class="card">
+    <div class="row-top">
+      <div class="gate-toggle" role="tablist" aria-label="نوع گیت">
+        <button id="btnNand" class="active" data-gate="NAND">NAND</button>
+        <button id="btnNor" data-gate="NOR">NOR</button>
+      </div>
+      <div class="expr" id="exprBox">Y = (A · B)′</div>
+    </div>
+
+    <div class="diagram-wrap">
+      <svg id="svg" viewBox="0 0 480 240" xmlns="http://www.w3.org/2000/svg">
+        <!-- input wires -->
+        <line x1="52" y1="90" x2="150" y2="90" stroke="var(--wire)" stroke-width="2.5"/>
+        <line x1="52" y1="150" x2="150" y2="150" stroke="var(--wire)" stroke-width="2.5"/>
+        <!-- output wire -->
+        <line x1="270" y1="120" x2="352" y2="120" stroke="var(--wire)" stroke-width="2.5"/>
+
+        <!-- gate bodies (crossfaded) -->
+        <path id="andShape" d="M150,58 H210 A62,62 0 0 1 210,182 H150 Z"
+              fill="var(--gate-fill)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path id="orShape" d="M150,58 Q166,120 150,182 Q222,176 272,120 Q222,64 150,58 Z"
+              fill="var(--gate-fill)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>
+
+        <!-- traveling NOT (output side): triangle + bubble -->
+        <g id="notOut">
+          <path d="M0,-13 L0,13 L24,0 Z" fill="var(--gate-fill)" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="32" cy="0" r="8" fill="var(--gate-fill)" stroke="var(--accent)" stroke-width="2.2"/>
+        </g>
+
+        <!-- traveling NOTs (input side, top + bottom) -->
+        <g id="notInTop">
+          <path d="M0,-13 L0,13 L24,0 Z" fill="var(--gate-fill)" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="32" cy="0" r="8" fill="var(--gate-fill)" stroke="var(--accent)" stroke-width="2.2"/>
+        </g>
+        <g id="notInBot">
+          <path d="M0,-13 L0,13 L24,0 Z" fill="var(--gate-fill)" stroke="var(--accent)" stroke-width="2.2" stroke-linejoin="round"/>
+          <circle cx="32" cy="0" r="8" fill="var(--gate-fill)" stroke="var(--accent)" stroke-width="2.2"/>
+        </g>
+
+        <!-- pin labels -->
+        <text x="30" y="94" class="pin-label" text-anchor="middle">A</text>
+        <text x="30" y="154" class="pin-label" text-anchor="middle">B</text>
+        <text x="400" y="124" class="pin-label" text-anchor="middle">Y</text>
+      </svg>
+    </div>
+
+    <div class="slider-block">
+      <div class="slider-ends"><span>← نات کنار ورودی‌ها</span><span>نات کنار خروجی →</span></div>
+      <input id="slider" type="range" min="0" max="100" value="100" step="1" aria-label="موقعیت نات">
+    </div>
+
+    <div class="foot-note">
+      <b>قاعده دمورگان:</b> (A·B)′ = A′ + B′ و (A+B)′ = A′ · B′ — یعنی وقتی نات از خروجی یک گیت
+      به ورودی‌هایش منتقل می‌شود، AND به OR تبدیل می‌شود (و برعکس).
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById('svg');
+  const andShape = document.getElementById('andShape');
+  const orShape = document.getElementById('orShape');
+  const notOut = document.getElementById('notOut');
+  const notInTop = document.getElementById('notInTop');
+  const notInBot = document.getElementById('notInBot');
+  const slider = document.getElementById('slider');
+  const exprBox = document.getElementById('exprBox');
+  const btnNand = document.getElementById('btnNand');
+  const btnNor = document.getElementById('btnNor');
+
+  let gate = 'NAND';
+
+  const X_TIP = 270, X_BACK = 150, Y_MID = 120, Y_TOP = 90, Y_BOT = 150;
+  const POS_OUT_AT_GATE = 270, POS_OUT_FAR = 306;
+  const POS_IN_AT_GATE = 112, POS_IN_FAR = 66;
+
+  function lerp(a,b,t){ return a + (b-a)*t; }
+
+  const EXPR = {
+    NAND: { out: 'Y = (A · B)′', in: 'Y = A′ + B′' },
+    NOR:  { out: 'Y = (A + B)′', in: 'Y = A′ · B′' }
+  };
+
+  function render(){
+    const t = Number(slider.value) / 100; // 0..1
+    const isOut = t >= 0.5;
+
+    let andOp, orOp;
+    if (gate === 'NAND') { andOp = t; orOp = 1 - t; }
+    else { andOp = 1 - t; orOp = t; }
+    andShape.style.opacity = andOp;
+    orShape.style.opacity = orOp;
+
+    if (isOut) {
+      notOut.style.opacity = 1;
+      notInTop.style.opacity = 0;
+      notInBot.style.opacity = 0;
+      const progress = (t - 0.5) / 0.5;
+      const x = lerp(POS_OUT_AT_GATE, POS_OUT_FAR, progress);
+      notOut.setAttribute('transform', 'translate(' + x + ',' + Y_MID + ')');
+    } else {
+      notOut.style.opacity = 0;
+      notInTop.style.opacity = 1;
+      notInBot.style.opacity = 1;
+      const progress = (0.5 - t) / 0.5;
+      const x = lerp(POS_IN_AT_GATE, POS_IN_FAR, progress);
+      notInTop.setAttribute('transform', 'translate(' + x + ',' + Y_TOP + ')');
+      notInBot.setAttribute('transform', 'translate(' + x + ',' + Y_BOT + ')');
+    }
+
+    exprBox.innerHTML = isOut ? EXPR[gate].out : EXPR[gate].in;
+  }
+
+  slider.addEventListener('input', render);
+
+  function setGate(g){
+    gate = g;
+    btnNand.classList.toggle('active', g === 'NAND');
+    btnNor.classList.toggle('active', g === 'NOR');
+    render();
+  }
+  btnNand.addEventListener('click', () => setGate('NAND'));
+  btnNor.addEventListener('click', () => setGate('NOR'));
+
+  [andShape, orShape, notOut, notInTop, notInBot].forEach(el => {
+    el.style.transition = 'opacity 0.35s ease';
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
