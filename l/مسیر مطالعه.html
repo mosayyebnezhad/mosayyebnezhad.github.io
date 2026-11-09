@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مسیر مطالعه</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap">
+<style>
+:root{--bg:#fff;--fg:#09090b;--muted:#71717a;--card:#fff;--border:#e4e4e7;--accent:#f4f4f5;--primary:#18181b;--primary-fg:#fafafa;--ring:#a1a1aa;--danger:#dc2626;--ok:#16a34a;--warn:#d97706;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#09090b;--fg:#fafafa;--muted:#a1a1aa;--card:#0c0c0f;--border:#27272a;--accent:#18181b;--primary:#fafafa;--primary-fg:#18181b;--ring:#52525b;--danger:#f87171;--ok:#4ade80;--warn:#fbbf24;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#09090b;--fg:#fafafa;--muted:#a1a1aa;--card:#0c0c0f;--border:#27272a;--accent:#18181b;--primary:#fafafa;--primary-fg:#18181b;--ring:#52525b;--danger:#f87171;--ok:#4ade80;--warn:#fbbf24;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Vazirmatn,Tahoma,sans-serif;font-size:14px;line-height:1.7}
+.wrap{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:20px}
+h1{font-size:20px;margin:0;font-weight:700}
+.sub{color:var(--muted);font-size:13px}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 14px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-weight:500;font-size:13px;white-space:nowrap}
+.btn:hover{background:var(--accent)}
+.btn.p{background:var(--primary);color:var(--primary-fg);border-color:var(--primary)}
+.btn.p:hover{opacity:.9;background:var(--primary)}
+.btn.d{color:var(--danger)}
+.btn.sm{height:30px;padding:0 10px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ring);outline-offset:1px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px}
+.stat{padding:14px}
+.stat b{display:block;font-size:24px;font-weight:700;line-height:1.3}
+.stat span{color:var(--muted);font-size:12px}
+.bar{height:6px;background:var(--accent);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.bar i{display:block;height:100%;background:var(--primary);transition:width .3s}
+.filters{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:4px}
+.chip{height:32px;padding:0 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg);cursor:pointer;white-space:nowrap;font-size:13px;color:var(--muted)}
+.chip.on{background:var(--accent);color:var(--fg);font-weight:600;border-color:var(--ring)}
+.topic{padding:16px;margin-bottom:12px}
+.row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.title{font-weight:600;font-size:16px;margin:0}
+.badge{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;border:1px solid var(--border);color:var(--muted);margin-inline-end:4px}
+.badge.hi{color:var(--danger);border-color:var(--danger)}.badge.lo{color:var(--ok);border-color:var(--ok)}.badge.late{color:var(--danger);border-color:var(--danger)}.badge.done{color:var(--ok);border-color:var(--ok)}
+.meta{margin:6px 0 10px;color:var(--muted);font-size:12px}
+.prog{display:flex;align-items:center;gap:10px;margin-bottom:12px}.prog .bar{flex:1}
+.steps{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:4px}
+.step{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:6px;border:1px solid transparent;width:100%;background:none;text-align:start;cursor:pointer}
+.step .c{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--ring);display:grid;place-items:center;flex:none;font-size:12px;line-height:1}
+.step.done .c{background:var(--primary);color:var(--primary-fg);border-color:var(--primary)}
+.step.done span{color:var(--muted);text-decoration:line-through}
+.step.cur{background:var(--accent);border-color:var(--border);font-weight:600}
+.step.lock{opacity:.5;cursor:default}
+.note{font-size:12px;color:var(--muted);background:var(--accent);padding:8px 10px;border-radius:6px;margin-bottom:12px;white-space:pre-wrap}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.empty{text-align:center;color:var(--muted);padding:40px 16px}
+dialog{border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--fg);padding:0;width:min(520px,calc(100vw - 24px));max-height:90vh;font-family:inherit}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.dh{padding:16px 18px 0}.dh h2{margin:0;font-size:16px}
+.db{padding:14px 18px;display:flex;flex-direction:column;gap:12px;overflow:auto;max-height:68vh}
+.df{padding:12px 18px 16px;display:flex;gap:8px;justify-content:flex-start}
+label.f{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:500}
+input[type=text],input[type=date],select,textarea{height:36px;width:100%;border:1px solid var(--border);background:var(--bg);border-radius:6px;padding:0 10px}
+textarea{height:70px;padding:8px 10px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sl{display:flex;flex-direction:column;gap:6px;border:1px solid var(--border);border-radius:6px;padding:8px}
+.sl label{display:flex;align-items:center;gap:8px;cursor:pointer}
+.add{display:flex;gap:6px}
+.menu{position:relative}
+.pop{position:absolute;inset-inline-start:0;top:42px;z-index:20;width:230px;padding:6px;display:none;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.pop.open{display:block}
+.pop h4{margin:6px 8px 4px;font-size:11px;color:var(--muted);font-weight:500}
+.pop button{display:flex;width:100%;align-items:center;gap:8px;padding:7px 8px;border:0;background:none;border-radius:5px;cursor:pointer;text-align:start;font-size:13px}
+.pop button:hover,.pop button.on{background:var(--accent)}
+.pop hr{border:0;border-top:1px solid var(--border);margin:6px 0}
+#toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--primary);color:var(--primary-fg);padding:8px 16px;border-radius:6px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div><h1>📚 مسیر مطالعه</h1><div class="sub">مدیریت مراحل یادگیری و پیگیری پیشرفت</div></div>
+  <div style="display:flex;gap:8px">
+    <button class="btn p" id="addBtn">+ مبحث جدید</button>
+    <div class="menu">
+      <button class="btn" id="menuBtn" aria-label="تنظیمات">⚙️ تنظیمات</button>
+      <div class="pop card" id="pop">
+        <h4>پوسته</h4>
+        <button data-th="light">☀️ روشن</button>
+        <button data-th="dark">🌙 تیره</button>
+        <button data-th="system">💻 سیستم</button>
+        <hr><h4>داده‌ها</h4>
+        <button id="exp">⬇️ تهیه پشتیبان (JSON)</button>
+        <button id="imp">⬆️ بازیابی از پشتیبان</button>
+        <button id="wipe" style="color:var(--danger)">🗑 حذف همه اطلاعات</button>
+      </div>
+    </div>
+  </div>
+</header>
+<section class="stats" id="stats"></section>
+<div class="filters" id="filters"></div>
+<main id="list"></main>
+</div>
+
+<dialog id="dlg"><div class="dh"><h2 id="dt"></h2></div><div class="db" id="dbody"></div><div class="df"><button class="btn p" id="save">ذخیره</button><button class="btn" id="cancel">انصراف</button></div></dialog>
+<dialog id="cdlg"><div class="dh"><h2 id="ct"></h2></div><div class="db" id="cm" style="color:var(--muted)"></div><div class="df"><button class="btn p" id="cok">تأیید</button><button class="btn" id="cno">انصراف</button></div></dialog>
+<input type="file" id="file" accept="application/json,.json" hidden>
+<div id="toast"></div>
+
+<script>
+const KEY='study-path-v1',TK='study-path-theme';
+const DEF=['مطالعه درسنامه','حل تست','خلاصه‌نویسی درسنامه و تست','نگاه گذرا به خلاصه‌ها','مرور نهایی'];
+const TYPES={both:'درسنامه و تست',text:'درسنامه',test:'تست'};
+const PR={high:'زیاد',normal:'معمولی',low:'کم'};
+let topics=[],filter='all',editing=null,draft=[];
+const $=s=>document.querySelector(s);
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36);
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{const r=localStorage.getItem(KEY);topics=r?JSON.parse(r):[]}catch(e){topics=[]}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(topics))}catch(e){toast('ذخیره‌سازی در این مرورگر ممکن نیست')}}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)}
+const pct=t=>t.steps.length?Math.round(t.steps.filter(s=>s.done).length/t.steps.length*100):0;
+const today=()=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate())};
+const isDone=t=>pct(t)===100;
+const isLate=t=>!isDone(t)&&t.due&&new Date(t.due+'T00:00:00')<today();
+const jd=d=>new Date(d+'T00:00:00').toLocaleDateString('fa-IR-u-ca-persian',{year:'numeric',month:'long',day:'numeric'});
+
+function applyTheme(m){const r=document.documentElement;if(m==='system')r.removeAttribute('data-theme');else r.setAttribute('data-theme',m);try{localStorage.setItem(TK,m)}catch(e){}document.querySelectorAll('[data-th]').forEach(b=>b.classList.toggle('on',b.dataset.th===m))}
+
+function render(){
+  const total=topics.length,done=topics.filter(isDone).length,act=total-done;
+  const all=total?Math.round(topics.reduce((a,t)=>a+pct(t),0)/total):0;
+  $('#stats').innerHTML=`<div class="card stat"><b>${fa(total)}</b><span>کل مباحث</span></div><div class="card stat"><b>${fa(done)}</b><span>تکمیل‌شده</span></div><div class="card stat"><b>${fa(act)}</b><span>در حال انجام</span></div><div class="card stat"><b>${fa(all)}٪</b><span>پیشرفت کلی</span><div class="bar" style="margin-top:6px"><i style="width:${all}%"></i></div></div>`;
+  const late=topics.filter(isLate).length;
+  const F=[['all','همه',total],['active','در حال انجام',act],['late','عقب‌افتاده',late],['done','تکمیل‌شده',done]];
+  $('#filters').innerHTML=F.map(f=>`<button class="chip ${filter===f[0]?'on':''}" data-f="${f[0]}">${f[1]} (${fa(f[2])})</button>`).join('');
+  const L=topics.filter(t=>filter==='all'||(filter==='active'&&!isDone(t))||(filter==='late'&&isLate(t))||(filter==='done'&&isDone(t)));
+  const ord={high:0,normal:1,low:2};
+  L.sort((a,b)=>isDone(a)-isDone(b)||ord[a.priority]-ord[b.priority]||(a.due||'9').localeCompare(b.due||'9'));
+  $('#list').innerHTML=L.length?L.map(card).join(''):`<div class="card empty">${total?'مبحثی با این فیلتر وجود ندارد.':'هنوز مبحثی اضافه نکرده‌اید. با «مبحث جدید» شروع کنید.'}</div>`;
+}
+function card(t){
+  const p=pct(t),cur=t.steps.findIndex(s=>!s.done),d=p===100;
+  const steps=t.steps.map((s,i)=>{const c=s.done?'done':i===cur?'cur':'lock';return `<li><button class="step ${c}" data-act="step" data-id="${t.id}" data-i="${i}" ${c==='lock'?'disabled':''}><span class="c">${s.done?'✓':''}</span><span>${esc(s.name)}</span></button></li>`}).join('');
+  return `<article class="card topic"><div class="row"><div><h3 class="title">${esc(t.title)}</h3>
+  <div class="meta"><span class="badge ${t.priority==='high'?'hi':t.priority==='low'?'lo':''}">اولویت ${PR[t.priority]}</span><span class="badge">${TYPES[t.type]}</span>${d?'<span class="badge done">تکمیل‌شده</span>':''}${isLate(t)?'<span class="badge late">گذشته از موعد</span>':''}${t.due?` هدف: ${jd(t.due)}`:''}</div></div></div>
+  <div class="prog"><div class="bar"><i style="width:${p}%"></i></div><b>${fa(p)}٪</b></div>
+  <ul class="steps">${steps}</ul>${t.note?`<div class="note">${esc(t.note)}</div>`:''}
+  <div class="acts"><button class="btn sm p" data-act="next" data-id="${t.id}" ${d?'disabled':''}>تکمیل مرحله بعد</button><button class="btn sm" data-act="all" data-id="${t.id}" ${d?'disabled':''}>تکمیل مسیر</button><button class="btn sm" data-act="reset" data-id="${t.id}">شروع مجدد</button><button class="btn sm" data-act="edit" data-id="${t.id}">ویرایش</button><button class="btn sm d" data-act="del" data-id="${t.id}">حذف</button></div></article>`;
+}
+
+function confirmBox(title,msg){return new Promise(res=>{$('#ct').textContent=title;$('#cm').textContent=msg;const d=$('#cdlg');const end=v=>{d.close();res(v)};$('#cok').onclick=()=>end(true);$('#cno').onclick=()=>end(false);d.oncancel=()=>res(false);d.showModal()})}
+
+document.addEventListener('click',async e=>{
+  const f=e.target.closest('[data-f]');if(f){filter=f.dataset.f;render();return}
+  const th=e.target.closest('[data-th]');if(th){applyTheme(th.dataset.th);return}
+  if(!e.target.closest('.menu'))$('#pop').classList.remove('open');
+  const b=e.target.closest('[data-act]');if(!b)return;
+  const t=topics.find(x=>x.id===b.dataset.id);if(!t)return;
+  const a=b.dataset.act;
+  if(a==='step'){const i=+b.dataset.i;if(t.steps[i].done){t.steps.forEach((s,j)=>{if(j>=i)s.done=false});toast('مرحله و مراحل بعد از آن بازگردانده شد')}else t.steps[i].done=true}
+  else if(a==='next'){const s=t.steps.find(s=>!s.done);if(s)s.done=true}
+  else if(a==='all'){t.steps.forEach(s=>s.done=true);toast('مسیر تکمیل شد')}
+  else if(a==='reset'){if(!await confirmBox('شروع مجدد','پیشرفت این مبحث صفر می‌شود. ادامه می‌دهید؟'))return;t.steps.forEach(s=>s.done=false)}
+  else if(a==='del'){if(!await confirmBox('حذف مبحث','«'+t.title+'» برای همیشه حذف می‌شود.'))return;topics=topics.filter(x=>x!==t)}
+  else if(a==='edit'){openForm(t);return}
+  persist();render();
+});
+
+$('#menuBtn').onclick=e=>{e.stopPropagation();$('#pop').classList.toggle('open')};
+
+function openForm(t){
+  editing=t;
+  const ex=t?t.steps.map(s=>({...s,on:true})):[];
+  draft=t?[...ex,...DEF.filter(n=>!ex.some(s=>s.name===n)).map(n=>({id:uid(),name:n,done:false,on:false}))]:DEF.map(n=>({id:uid(),name:n,done:false,on:true}));
+  $('#dt').textContent=t?'ویرایش مبحث':'مبحث جدید';
+  $('#dbody').innerHTML=`<label class="f">عنوان درس یا مبحث<input type="text" id="fT" value="${esc(t?.title||'')}" placeholder="مثلاً: فیزیک – حرکت‌شناسی"></label>
+  <div class="g2"><label class="f">نوع مطالعه<select id="fY">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${(t?.type||'both')===k?'selected':''}>${v}</option>`).join('')}</select></label>
+  <label class="f">اولویت<select id="fP">${Object.entries(PR).map(([k,v])=>`<option value="${k}" ${(t?.priority||'normal')===k?'selected':''}>${v}</option>`).join('')}</select></label></div>
+  <label class="f">تاریخ هدف برای اتمام<input type="date" id="fD" value="${t?.due||''}"></label>
+  <div class="f">مراحل مطالعه<div class="sl" id="fS"></div><div class="add"><input type="text" id="fN" placeholder="افزودن مرحله دلخواه"><button class="btn" id="fA" type="button">افزودن</button></div></div>
+  <label class="f">یادداشت<textarea id="fNo">${esc(t?.note||'')}</textarea></label>`;
+  drawSteps();
+  $('#fA').onclick=addStep;$('#fN').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();addStep()}};
+  $('#dlg').showModal();
+}
+function drawSteps(){$('#fS').innerHTML=draft.map((s,i)=>`<label><input type="checkbox" data-s="${i}" ${s.on?'checked':''}> ${esc(s.name)}</label>`).join('');
+  document.querySelectorAll('[data-s]').forEach(c=>c.onchange=()=>{draft[+c.dataset.s].on=c.checked})}
+function addStep(){const n=$('#fN').value.trim();if(!n)return;draft.push({id:uid(),name:n,done:false,on:true});$('#fN').value='';drawSteps()}
+$('#addBtn').onclick=()=>openForm(null);
+$('#cancel').onclick=()=>$('#dlg').close();
+$('#save').onclick=()=>{
+  const title=$('#fT').value.trim(),steps=draft.filter(s=>s.on).map(({id,name,done})=>({id,name,done}));
+  if(!title)return toast('عنوان را وارد کنید');
+  if(!steps.length)return toast('حداقل یک مرحله انتخاب کنید');
+  let ok=true;steps.forEach(s=>{if(!s.done)ok=false;else if(!ok)s.done=false});
+  const data={title,type:$('#fY').value,priority:$('#fP').value,due:$('#fD').value,note:$('#fNo').value.trim(),steps};
+  if(editing)Object.assign(editing,data);else topics.push({id:uid(),created:Date.now(),...data});
+  persist();render();$('#dlg').close();toast('ذخیره شد');
+};
+
+$('#exp').onclick=()=>{
+  const blob=new Blob([JSON.stringify({app:'study-path',version:1,exportedAt:new Date().toISOString(),topics},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='study-path-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  $('#pop').classList.remove('open');toast('فایل پشتیبان آماده شد');
+};
+$('#imp').onclick=()=>{$('#pop').classList.remove('open');$('#file').click()};
+$('#file').onchange=async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f)return;
+  try{
+    const j=JSON.parse(await f.text());const arr=Array.isArray(j)?j:j.topics;
+    if(!Array.isArray(arr))throw 0;
+    const clean=arr.filter(t=>t&&t.title&&Array.isArray(t.steps)).map(t=>({id:t.id||uid(),created:t.created||Date.now(),title:String(t.title),type:TYPES[t.type]?t.type:'both',priority:PR[t.priority]?t.priority:'normal',due:t.due||'',note:t.note||'',steps:t.steps.map(s=>({id:s.id||uid(),name:String(s.name),done:!!s.done}))}));
+    if(!await confirmBox('بازیابی اطلاعات',`${fa(clean.length)} مبحث در فایل یافت شد. تمام اطلاعات فعلی با آن جایگزین می‌شود. ادامه می‌دهید؟`))return;
+    topics=clean;persist();render();toast('اطلاعات بازیابی شد');
+  }catch(err){toast('فایل پشتیبان معتبر نیست')}
+};
+$('#wipe').onclick=async()=>{$('#pop').classList.remove('open');if(!await confirmBox('حذف همه اطلاعات','تمام مباحث حذف می‌شوند. پیشنهاد می‌شود ابتدا پشتیبان بگیرید.'))return;topics=[];persist();render()};
+
+let th='system';try{th=localStorage.getItem(TK)||'system'}catch(e){}
+applyTheme(th);load();render();
+</script>
+</body>
+</html>
